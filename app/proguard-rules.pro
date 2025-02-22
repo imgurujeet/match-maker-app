@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Google Play Services Ads
+-keep class com.google.android.gms.ads.** { *; }
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.android.gms.**
+-dontwarn com.google.firebase.**
+-keep class your.package.name.** { *; }
+-dontwarn your.package.name.**

@@ -43,26 +43,73 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.KeyboardDoubleArrowDown
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.ui.unit.IntOffset
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-
+import kotlin.math.roundToInt
 
 
 @Composable
 fun ConfessionScreen(navController: NavHostController, viewModel: ConfessionViewModel = ConfessionViewModel()) {
-    Column {
+
+        var isSlideVisible by remember { mutableStateOf(false) } // Controls slide-up visibility
+        var offsetY by remember { mutableStateOf(0f) } // Track the drag offset
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("messages")
 
         myRef.setValue("Hello, Firebase!")
 
+
+
+
+    // Main content container with draggable effect
+    Column(modifier = Modifier.fillMaxSize()) {
         TopBar()
-        ConfessionScreenMessage(viewModel = ConfessionViewModel())
+
+        ConfessionScreenMessage(viewModel)
+
+
+
+
     }
+
 }
 
+
+
+//AnimatedVisibility(
+//visible = isSlideVisible,
+//enter = slideInVertically(
+//initialOffsetY = { -it },
+//animationSpec = spring(stiffness = Spring.StiffnessLow) // Smooth pull effect
+//),
+//exit = slideOutVertically(
+//targetOffsetY = { -it },
+//animationSpec = spring(stiffness = Spring.StiffnessLow) // Smooth exit
+//)
+//) {
+//
+//}
 
 //@Composable
 //fun ConfessionScreenmessage(viewModel: ConfessionViewModel) {

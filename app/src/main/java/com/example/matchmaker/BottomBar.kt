@@ -20,13 +20,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
 import androidx.compose.ui.Modifier
@@ -37,93 +42,49 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.matchmaker.route.Home
+import com.example.matchmaker.route.ConfessionScreen
+import com.example.matchmaker.route.ShortsScreen
+import com.example.matchmaker.route.AdvtScreen
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    Card (
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(0.dp)
-            .height(100.dp)
-            .padding(
-                bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-            ),
-        elevation=CardDefaults.cardElevation(defaultElevation = 10.dp),
 
 
-    ) {
+    val bottomDestinations= listOf(
+        Home,
+        ConfessionScreen,
+        ShortsScreen,
+        AdvtScreen
 
-        Row(
-            modifier = Modifier.fillMaxSize(),
-               // .windowInsetsPadding(WindowInsets.navigationBars),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
+    )
 
+    val selectedIndex = rememberSaveable { mutableStateOf(0) }
 
-        ){
-
-            Column (horizontalAlignment = Alignment.CenterHorizontally) {
-
-                IconButton(onClick = { navController.navigate("Home") {
-                    popUpTo("Home") { inclusive = false }
-                       // saveState = true // Saves the previous state
-
-                    launchSingleTop = true
-                    restoreState = true
+    NavigationBar {
+        bottomDestinations.forEachIndexed { index, destination ->
+            NavigationBarItem(
+                label = ({ Text(text = destination.title) }),
+                icon = {
+                    Icon(
+                        painter = destination.icon(),
+                        contentDescription = destination.title,
+                        modifier = Modifier.size(24.dp),
+                        tint = Color.Unspecified
+                    )
+                },
+                selected = index == selectedIndex.value,
+                onClick = {
+                    selectedIndex.value = index
+                    navController.navigate(bottomDestinations[index].route) {
+                        popUpTo(Home.route)
+                        launchSingleTop = true
                     }
+
                 }
-                )
-                {
 
-                    Image(
-                        painter = painterResource(id=R.drawable.search),
-                        contentDescription = "search",
-                        modifier = Modifier.size(36.dp),
-                        contentScale = ContentScale.Inside
-                    )
-//                    Icon(Icons.Filled.Face, contentDescription = "Home",
-//
-//                        modifier = Modifier.size(50.dp),
-//                        tint = Color.Yellow
-//                    )
-                }
-                Text(
-                    text = "Match",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                )
-
-            }
-
-            Column (horizontalAlignment = Alignment.CenterHorizontally){
-                IconButton(onClick = { navController.navigate("ConfessionScreen"){
-                    launchSingleTop = true
-                    restoreState = true
-                }
-                }) {
-                    Image(
-                        painter = painterResource(id=R.drawable.finger_crossed),
-                        contentDescription = "ConfessionScreen",
-                        modifier = Modifier.size(36.dp)
-                    )
-                  //  Text(text = "🤞", fontSize = 32.sp)
-//                Icon(Icons.Filled.Favorite, contentDescription = "ConfessionScreen",
-//                    modifier = Modifier.size(50.dp)
-//                )
-                }
-                Text(
-                    text = "Confess",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                )
-
-            }
-
+            )
         }
-
     }
-
 
 }
