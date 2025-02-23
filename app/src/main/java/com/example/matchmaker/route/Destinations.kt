@@ -42,5 +42,5 @@ object AdvtScreen : Destinations {
     override val route = "AdvtScreen"
     @Composable
     override fun icon(): Painter = painterResource(id=R.drawable.appdev)
-    override val title: String= "Info"
+    override val title: String= "Join"
 }

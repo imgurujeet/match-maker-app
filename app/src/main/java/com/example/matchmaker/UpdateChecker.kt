@@ -19,7 +19,7 @@ object UpdateManager {
     private const val UPDATE_URL = "https://github.com/imgurujeet/match-maker-updates/raw/main/update.json"
     private const val PREFS_NAME = "MatchMakerPrefs"
     private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
-    private const val CURRENT_VERSION = "2.4" // Change this with your app's actual version
+    private const val CURRENT_VERSION = "2.5" // Change this with your app's actual version
     private const val APK_NAME = "MatchMaker.apk"
 
     fun startAutoUpdateCheck(context: Context) {

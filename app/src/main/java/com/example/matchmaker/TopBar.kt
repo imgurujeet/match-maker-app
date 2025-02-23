@@ -36,11 +36,11 @@ fun TopBar(){
             .padding(0.dp)
             .height(60.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        colors = CardDefaults.cardColors(Color(0xff907ad6)),
+        colors = CardDefaults.cardColors(Color(0xFFB388FF)),
 
         ) {
 
-        Text(text = "Express & Connect",
+        Text(text = "Confess & Connect",
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp) // Adjust height as needed

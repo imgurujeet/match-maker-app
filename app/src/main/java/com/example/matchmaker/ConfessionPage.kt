@@ -153,6 +153,7 @@ class ConfessionViewModel : ViewModel( ) {
                 if (latestConfession != null && latestConfession.timestamp != null) {
                     val newTimestamp = latestConfession.timestamp
 
+
                     if (lastConfessionTimestamp == null || newTimestamp.toDate().after(lastConfessionTimestamp!!.toDate())) {
                         lastConfessionTimestamp = newTimestamp
 
@@ -163,8 +164,8 @@ class ConfessionViewModel : ViewModel( ) {
                         } else {
                             Log.d("ConfessionViewModel", "✅ NotificationHelper is initialized. Sending notification...")
                             notificationHelper?.showNotification(
-                                "New Confession!",
-                                "Someone just posted a new confession."
+                                "Confession booth is LIVE! 🎤",
+                                "Who’s spilling the tea today?"
                             )
                         }
 
@@ -315,7 +316,7 @@ fun ConfessionScreenMessage(viewModel: ConfessionViewModel) {
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp),
-            containerColor = Color(0xff907ad6)
+            containerColor = Color(0xFF00E676)
         ) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Add Confession", tint = Color.White)
         }
@@ -439,7 +440,7 @@ fun ConfessionScreenMessage(viewModel: ConfessionViewModel) {
                         }
                     },
                     enabled = !isPosting, // Disable button while posting
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xff907ad6)),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00E676)),
                     modifier = Modifier.fillMaxWidth()
                         .navigationBarsPadding()
                 ) {
@@ -657,45 +658,56 @@ fun ConfessionMessageScreen(viewModel: ConfessionViewModel) {
                                 }
 
                                 // Spacer or Separator
-                                Spacer(modifier = Modifier.height(16.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Row(
+                                    modifier = Modifier.fillMaxSize()
+                                        .padding(horizontal = 1.dp),
+                                    //horizontalArrangement = Arrangement.SpaceBetween, // This will space the items between
+                                    verticalAlignment = Alignment.CenterVertically
+                                ){
 
-                                // TextField for Adding a Comment
-                                var commentText by remember { mutableStateOf("") }
-                                TextField(
-                                    value = commentText,
-                                    onValueChange = { commentText = it },
-                                    placeholder = { Text("Add a comment...") },
-                                    modifier = Modifier.fillMaxWidth(),
-                                    singleLine = true,
-                                    keyboardOptions = KeyboardOptions.Default.copy(
-                                        imeAction = ImeAction.Done
-                                    ),
-                                    keyboardActions = KeyboardActions(onDone = {
-                                        if (commentText.isNotBlank()) {
-                                            // Add the comment using ViewModel
-                                            viewModel.addComment(confession, commentText)
-                                            commentText = "" // Clear the text field
-                                        }
-                                    })
-                                )
-
-                                // Send Comment Icon
-                                IconButton(
-                                    onClick = {
-                                        if (commentText.isNotBlank()) {
-                                            viewModel.addComment(confession, commentText)
-                                            commentText = "" // Clear text field after submitting
-                                        }
-                                    },
-                                    modifier = Modifier.align(Alignment.End).padding(8.dp)
-                                ) {
-                                    // Send icon will also change color based on the theme
-                                    Icon(
-                                        imageVector = Icons.Default.Send,
-                                        contentDescription = "Send Comment",
-                                        tint = if (isDarkTheme) Color.White else Color.Black
+                                    // TextField for Adding a Comment
+                                    var commentText by remember { mutableStateOf("") }
+                                    TextField(
+                                        value = commentText,
+                                        onValueChange = { commentText = it },
+                                        placeholder = { Text("Add a comment...") },
+                                        modifier = Modifier
+                                            .weight(1f) // Allows the text field to take available space
+                                            .padding(end = 8.dp), // Space between text field and icon,
+                                        singleLine = true,
+                                        keyboardOptions = KeyboardOptions.Default.copy(
+                                            imeAction = ImeAction.Done
+                                        ),
+                                        keyboardActions = KeyboardActions(onDone = {
+                                            if (commentText.isNotBlank()) {
+                                                // Add the comment using ViewModel
+                                                viewModel.addComment(confession, commentText)
+                                                commentText = "" // Clear the text field
+                                            }
+                                        })
                                     )
+
+                                    // Send Comment Icon
+                                    IconButton(
+                                        onClick = {
+                                            if (commentText.isNotBlank()) {
+                                                viewModel.addComment(confession, commentText)
+                                                commentText = "" // Clear text field after submitting
+                                            }
+                                        },
+                                        //modifier = Modifier.padding(8.dp)
+                                    ) {
+                                        // Send icon will also change color based on the theme
+                                        Icon(
+                                            imageVector = Icons.Default.Send,
+                                            contentDescription = "Send Comment",
+                                            tint = if (isDarkTheme) Color.White else Color.Black
+                                        )
+                                    }
+
                                 }
+
                             }
                         }
 

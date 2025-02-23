@@ -57,6 +57,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
@@ -102,12 +104,12 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
                     // Save the loaded ad in state
                     interstitialAd.value = ad
 
-                    Toast.makeText(context, "Ad Loaded", Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(context, "Ad Loaded", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Toast.makeText(context, "Failed to load ad: ${adError.message}", Toast.LENGTH_SHORT).show()
-                }
+//                override fun onAdFailedToLoad(adError: LoadAdError) {
+//                    Toast.makeText(context, "Failed to load ad: ${adError.message}", Toast.LENGTH_SHORT).show()
+//                }
             }
         )
     }
@@ -124,12 +126,12 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     // Handle failure to show ad
-                    Toast.makeText(context, "Failed to show ad: ${adError.message}", Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(context, "Failed to show ad: ${adError.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-    showInterstitialAd()
+    //showInterstitialAd()
 
     // Load ad when the screen is first displayed and whenever it's resumed
     LaunchedEffect(Unit) {
@@ -192,7 +194,7 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
             modifier = Modifier.fillMaxWidth().scale(scale)
         ) {
             Text(
-                text = if (reveal) "Hide Details 🕵️" else "Who’s Behind the Magic? 🎭",
+                text = if (reveal) "Hide Details 🕵️" else "Click to Know? 🎭",
                 textAlign = TextAlign.Center
             )
         }
@@ -246,7 +248,7 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xff907ad6))
         ) {
             Text(
-                text = "Get More Info 🎉",
+                text = "Tap Me!! 🎉",
                 textAlign = TextAlign.Center
             )
         }
@@ -259,24 +261,60 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
+
+        AdBanner2()
     }
 
-    Spacer(modifier = Modifier.height(30.dp))
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 16.dp),
-        contentAlignment = Alignment.BottomCenter
-    ) {
-        Text(
-            text = "📢 This app is all yours! Made for our college community, where you can post anything without restrictions. Join us and make this platform thrive! 🚀",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(16.dp)
-        )
-    }
+
+
+
+
+        Box(
+
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+
+            Text(
+                text = "📢 This app is all yours! Made for our college community, where you can post anything without restrictions. Join us and make this platform thrive! 🚀",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+}
+
+
+@Composable
+fun AdBanner2() {
+    val context = LocalContext.current
+   // val adSize = AdSize.FLUID
+
+
+    val adUnitId="ca-app-pub-9204160176455905/5090108363"
+
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val screenWidthPx = with(LocalDensity.current) { screenWidthDp.dp.toPx().toInt() }
+    val adaptiveAdSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidthPx)
+    // Load the ad
+    val adRequest = AdRequest.Builder().build()
+    // Display the AdView
+    AndroidView(
+        factory = {context ->
+            AdView(context).apply {
+                setAdSize(adaptiveAdSize)
+                setAdUnitId(adUnitId)
+                loadAd(adRequest)
+            }
+        },
+        modifier = Modifier.fillMaxWidth()
+            .height(adaptiveAdSize.getHeightInPixels(context).dp)
+    )
 }
 
 

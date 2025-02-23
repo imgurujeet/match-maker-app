@@ -107,7 +107,6 @@ dependencies {
     implementation ("com.google.firebase:firebase-database:20.0.3")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.0")
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-analytics")
 
     // Declare the KTX module instead (which automatically has a dependency on the main module)
     implementation ("com.google.firebase:firebase-analytics-ktx")

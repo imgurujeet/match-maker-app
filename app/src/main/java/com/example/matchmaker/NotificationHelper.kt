@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.compose.runtime.*
 
 class NotificationHelper(private val context: Context) {
 
@@ -44,7 +45,7 @@ class NotificationHelper(private val context: Context) {
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground) // Replace with your app's icon
+            .setSmallIcon(R.drawable.ic_launcher) // Replace with your app's icon
             .setContentTitle(title)
             .setContentText(message)
             .setAutoCancel(true)
@@ -53,5 +54,8 @@ class NotificationHelper(private val context: Context) {
             .build()
 
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
+
+
     }
+
 }

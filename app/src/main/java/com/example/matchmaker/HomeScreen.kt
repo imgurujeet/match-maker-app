@@ -224,7 +224,7 @@ fun ImageBox(navController: NavHostController, viewModel: ImageViewModel = Image
 
             if (showAd) {
                 viewModel.showInterstitialAd(context)
-                Toast.makeText(context, "Ad is showing", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(context, "Ad is showing", Toast.LENGTH_SHORT).show()
                 LaunchedEffect(Unit) {
                     delay(1000)  // Adjust this delay as needed
                     showAd = false // Reset the ad state after showing the ad
