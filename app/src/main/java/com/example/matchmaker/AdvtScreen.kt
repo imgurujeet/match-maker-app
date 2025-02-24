@@ -75,6 +75,7 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
     val context = LocalContext.current
     var reveal by remember { mutableStateOf(false) }
     val isDarkTheme = isSystemInDarkTheme()
+    var adShown by remember { mutableStateOf(false) }
 
 
     // State for handling the animation trigger
@@ -116,26 +117,30 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
 
     // Show the interstitial ad if it's loaded
     fun showInterstitialAd() {
-        interstitialAd.value?.let { ad ->
-            ad.show(context as Activity)
-            ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-                override fun onAdDismissedFullScreenContent() {
-                    interstitialAd.value = null // Nullify after ad is dismissed
-                    loadInterstitialAd() // Reload the ad
-                }
 
-                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                    // Handle failure to show ad
-                  //  Toast.makeText(context, "Failed to show ad: ${adError.message}", Toast.LENGTH_SHORT).show()
+            interstitialAd.value?.let { ad ->
+                ad.show(context as Activity)
+                ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        interstitialAd.value = null // Nullify after ad is dismissed
+                        loadInterstitialAd() // Reload the ad
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                        // Handle failure to show ad
+                        //  Toast.makeText(context, "Failed to show ad: ${adError.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-        }
+
+
     }
-    //showInterstitialAd()
+
 
     // Load ad when the screen is first displayed and whenever it's resumed
     LaunchedEffect(Unit) {
         loadInterstitialAd()
+        showInterstitialAd()
     }
 
     Column(
@@ -222,6 +227,15 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        Text(
+            text = "💡 We welcome contributors! Join us and make it even better!",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+
+
+            )
+
         // AdMob Banner Ad
         AndroidView(
             modifier = Modifier
@@ -236,7 +250,7 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
             }
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         Button(
             onClick = {
@@ -253,16 +267,12 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
             )
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
 
-        Text(
-            text = "💡 We welcome contributors! Join us and make it even better!",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
 
         AdBanner2()
+        //Spacer(modifier = Modifier.height(20.dp))
+
+
     }
 
 
@@ -293,27 +303,25 @@ fun AdvtScreen(navController: NavHostController, viewModel: ImageViewModel = vie
 @Composable
 fun AdBanner2() {
     val context = LocalContext.current
-   // val adSize = AdSize.FLUID
+    val adSize = AdSize.FULL_BANNER
 
 
     val adUnitId="ca-app-pub-9204160176455905/5090108363"
 
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val screenWidthPx = with(LocalDensity.current) { screenWidthDp.dp.toPx().toInt() }
-    val adaptiveAdSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidthPx)
+
     // Load the ad
     val adRequest = AdRequest.Builder().build()
     // Display the AdView
     AndroidView(
         factory = {context ->
             AdView(context).apply {
-                setAdSize(adaptiveAdSize)
+                setAdSize(adSize)
                 setAdUnitId(adUnitId)
                 loadAd(adRequest)
             }
         },
         modifier = Modifier.fillMaxWidth()
-            .height(adaptiveAdSize.getHeightInPixels(context).dp)
+            .height(adSize.getHeightInPixels(context).dp)
     )
 }
 

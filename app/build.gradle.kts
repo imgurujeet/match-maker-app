@@ -46,7 +46,7 @@ android {
 
 
 
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             android.buildFeatures.buildConfig=true
 
 

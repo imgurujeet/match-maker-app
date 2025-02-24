@@ -60,7 +60,7 @@ object UpdateManager {
         val lastCheck = sharedPref.getLong(LAST_UPDATE_CHECK, 0)
         val currentTime = System.currentTimeMillis()
 
-        return (currentTime - lastCheck) > TimeUnit.SECONDS.toMillis(10) // Check every 10 seconds
+        return (currentTime - lastCheck) > TimeUnit.SECONDS.toMillis(10000) // Check every 10 seconds
     }
 
     private fun saveUpdateCheckTime(context: Context) {

@@ -25,5 +25,8 @@
 -keep class com.google.firebase.** { *; }
 -dontwarn com.google.android.gms.**
 -dontwarn com.google.firebase.**
--keep class your.package.name.** { *; }
--dontwarn your.package.name.**
+-keep class com.example.matchmaker.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class com.firebase.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class android.webkit.** { *; }
