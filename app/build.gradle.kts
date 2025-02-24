@@ -131,7 +131,6 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.8.9")
     implementation ("com.google.http-client:google-http-client-gson:1.42.3")
     implementation ("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
-    implementation ("com.google.android.exoplayer:exoplayer:2.18.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
