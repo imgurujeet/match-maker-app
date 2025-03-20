@@ -1,12 +1,14 @@
-# Match Maker App 
+# Match Maker - IEM Kolkata
 
 ## About the App
 Match Maker is an anonymous matchmaking and confession platform designed exclusively for students at IEM Kolkata. It provides a seamless and private way to connect, express thoughts, and share confessions without requiring authentication.
 
 ## Features
-- **Anonymous Matchmaking**: Connect with fellow students without revealing identities.
+- **Enter Enrollment Number**: Get your match by entering your enrollment number—let love find its way!.
+- **Anonymous Matchmaking**: Connect with students while keeping your identity hidden.
 - **Confession Posts**: Post anonymous confessions that others can engage with.
-- **Image Uploads**: Share images securely using Cloudinary.
+- **Image Upload**: Users can upload images along with their confessions.
+- **Commenting System**: Engage with posts by leaving comments.
 - **Smooth UI**: Built using Jetpack Compose for a modern and fluid user experience.
 - **Secure & Scalable**: Firebase backend ensures real-time updates and secure data handling.
 
@@ -32,7 +34,7 @@ Match Maker is an anonymous matchmaking and confession platform designed exclusi
 
 ### Cloudinary Setup
 - Add your Cloudinary API credentials in `gradle.properties` or as environment variables.
-- Use Cloudinary SDK for handling image uploads.
+- Use Cloudinary SDK for handling image storage.
 
 ## How to Contribute
 - Fork the repo and create a new branch.
