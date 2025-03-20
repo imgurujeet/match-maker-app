@@ -1,4 +1,4 @@
-# Match Maker - IEM Kolkata
+# Match Maker App
 
 ## About the App
 Match Maker is an anonymous matchmaking and confession platform designed exclusively for students at IEM Kolkata. It provides a seamless and private way to connect, express thoughts, and share confessions without requiring authentication.
