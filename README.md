@@ -1,4 +1,6 @@
 # Match Maker App
+## Download the App 
+[Click Here](https://github.com/imgurujeet/match-maker-app/raw/refs/heads/main/app/release/app-release.apk)
 
 ## About the App
 Match Maker is an anonymous matchmaking and confession platform designed exclusively for students at IEM Kolkata. It provides a seamless and private way to connect, express thoughts, and share confessions without requiring authentication.
@@ -21,7 +23,7 @@ Match Maker is an anonymous matchmaking and confession platform designed exclusi
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone <YOUR_GIT_URL>
+   git clone https://github.com/imgurujeet/match-maker-app.git
    cd match-maker-app
    ```
 2. Open the project in Android Studio.
