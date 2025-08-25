@@ -41,7 +41,7 @@ Match Maker is an anonymous matchmaking and confession platform designed exclusi
 ## How to Contribute
 - Fork the repo and create a new branch.
 - Make necessary changes and push them.
-- Submit a pull request for review.
+- Submit a pull request for review..
 
 ## License
 This project is open-source and free to use. Feel free to contribute and improve it!
